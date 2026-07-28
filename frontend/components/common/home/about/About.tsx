@@ -7,7 +7,7 @@ import { values } from "./values";
 
 export default function About() {
   return (
-    <section className="bg-white py-24 px-6 lg:px-20 overflow-hidden">
+    <section className="bg-[#FAF8F5] py-24 px-6 lg:px-20 overflow-hidden">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         {/* Image */}
         <motion.div
@@ -43,7 +43,7 @@ export default function About() {
             About EMIFEX
           </span>
 
-          <h2 className="text-4xl lg:text-5xl font-bold mt-4">
+          <h2 className="text-4xl lg:text-5xl font-bold mt-4 text-zinc-800">
             Tailoring Confidence Through Fashion
           </h2>
 
@@ -63,7 +63,7 @@ export default function About() {
                 transition={{ delay: index * 0.2 }}
                 className="border-l-4 border-[#C89B3C] pl-5"
               >
-                <h3 className="font-semibold text-xl">{item.title}</h3>
+                <h3 className="font-semibold text-xl text-zinc-800">{item.title}</h3>
 
                 <p className="text-gray-600 mt-2">{item.description}</p>
               </motion.div>

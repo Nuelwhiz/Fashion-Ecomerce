@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F8F5F0]">
+    <section className="relative overflow-hidden bg-[#FAF8F5]">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-between gap-16 px-6 py-16 lg:flex-row lg:px-10">
         {/* Left Content */}
         <div className="max-w-xl">

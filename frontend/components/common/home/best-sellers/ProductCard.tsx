@@ -10,16 +10,12 @@ interface ProductProps {
   image: string;
 }
 
-export default function ProductCard({
-  name,
-  price,
-  image,
-}: ProductProps) {
+export default function ProductCard({ name, price, image }: ProductProps) {
   return (
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35 }}
-      className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl"
+      className="group rounded-2xl overflow-hidden bg-gray-200 shadow-sm hover:shadow-xl"
     >
       <div className="relative h-[360px] overflow-hidden">
         <Image
@@ -31,15 +27,11 @@ export default function ProductCard({
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold">{name}</h3>
+        <h3 className="text-xl font-semibold text-zinc-700">{name}</h3>
 
-        <p className="text-[#C89B3C] font-bold text-lg mt-2">
-          {price}
-        </p>
+        <p className="text-[#C89B3C] font-bold text-lg mt-2">{price}</p>
 
-        <Button className="mt-5 w-full">
-          Add to Cart
-        </Button>
+        <Button className="mt-5 w-full">Add to Cart</Button>
       </div>
     </motion.div>
   );
