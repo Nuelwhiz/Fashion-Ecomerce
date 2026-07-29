@@ -20,7 +20,7 @@ export default function BestSellers() {
 
         <h2 className="text-5xl font-bold mt-4">Best Sellers</h2>
 
-        <p className="mt-5 text-gray-600 max-w-2xl mx-auto">
+        <p className="mt-5 text-gray-300 max-w-2xl mx-auto">
           Discover handcrafted fashion pieces designed with elegance, confidence
           and timeless style.
         </p>

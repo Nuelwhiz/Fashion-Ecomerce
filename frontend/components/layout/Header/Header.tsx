@@ -92,7 +92,7 @@ export default function Header() {
                       size={16}
                       className={`transition-transform duration-300 ${
                         openDropdown ? "rotate-180" : ""
-                      }`}
+                      } `}
                     />
                   </button>
 
@@ -129,11 +129,11 @@ export default function Header() {
 
         {/* Desktop Icons */}
         <div className="hidden lg:flex items-center gap-5">
-          <Search className="h-5 w-5 cursor-pointer hover:text-amber-600 transition" />
+          <Search className="h-5 w-5 text-amber-600 cursor-pointer hover:text-zinc-700 transition" />
 
-          <Heart className="h-5 w-5 cursor-pointer hover:text-red-500 transition" />
+          <Heart className="h-5 w-5 text-zinc-900 cursor-pointer hover:text-red-500 transition" />
 
-          <ShoppingBag className="h-5 w-5 cursor-pointer hover:text-amber-600 transition" />
+          <ShoppingBag className="h-5 w-5 text-zinc-900 cursor-pointer hover:text-amber-600 transition" />
 
           <button className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-amber-700 transition">
             Shop Now
@@ -173,7 +173,7 @@ export default function Header() {
 
                       <ChevronDown
                         size={18}
-                        className={`transition-transform ${
+                        className={` transition-transform ${
                           mobileDropdown ? "rotate-180" : ""
                         }`}
                       />

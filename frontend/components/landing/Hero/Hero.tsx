@@ -13,17 +13,14 @@ export default function Hero() {
           <span className="mb-5 inline-block rounded-full bg-amber-100 px-5 py-2 text-sm font-medium text-amber-700">
             New Collection 2026
           </span>
-
           <h1 className="text-5xl font-black leading-tight text-zinc-900 lg:text-7xl">
             Wear <br /> Confidence.
           </h1>
-
           <p className="mt-8 text-lg leading-8 text-zinc-600">
             Discover premium ready-to-wear outfits crafted for elegance,
             comfort, and confidence. Every stitch is designed to make you stand
             out wherever you go.
           </p>
-
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/shop"
@@ -44,7 +41,7 @@ export default function Hero() {
 
         {/* Right Image */}
         <div className="relative">
-          {/* Decorative Blur */}
+          
           <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-amber-200 blur-3xl" />
 
           <div className="absolute -bottom-10 -right-10 h-48 w-48 rounded-full bg-zinc-300 blur-3xl" />
