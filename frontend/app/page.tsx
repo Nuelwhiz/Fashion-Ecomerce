@@ -5,6 +5,7 @@ import BestSellers from "@/components/common/home/best-sellers/BestSellers";
 import About from "@/components/common/home/about/About";
 import WhyChoose from "@/components/common/home/why-choose/WhyChoose";
 import Testimonials from "@/components/common/home/testimonials/Testimonials";
+import Newsletter from "@/components/common/home/newsLetter/NewsLetter";
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
         </div>
         <div>
           <Testimonials />
+        </div>
+        <div>
+          <Newsletter />
         </div>
       </main>
     </>
