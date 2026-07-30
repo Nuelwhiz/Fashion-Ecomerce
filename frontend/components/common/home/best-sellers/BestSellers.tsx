@@ -6,7 +6,7 @@ import { products } from "./product";
 
 export default function BestSellers() {
   return (
-    <section className="py-24 px-6 lg:px-20">
+    <section className="py-24 px-6 lg:px-20 bg-[#1F2937]">
       <motion.div
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -4,6 +4,7 @@ import FeaturedCategories from "@/components/common/home/featured-categories/Fea
 import BestSellers from "@/components/common/home/best-sellers/BestSellers";
 import About from "@/components/common/home/about/About";
 import WhyChoose from "@/components/common/home/why-choose/WhyChoose";
+import Testimonials from "@/components/common/home/testimonials/Testimonials";
 
 export default function Home() {
   return (
@@ -21,6 +22,9 @@ export default function Home() {
         </div>
         <div>
           <WhyChoose />
+        </div>
+        <div>
+          <Testimonials />
         </div>
       </main>
     </>
