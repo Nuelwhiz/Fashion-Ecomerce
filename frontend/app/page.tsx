@@ -3,6 +3,7 @@ import Hero from "@/components/landing/Hero/Hero";
 import FeaturedCategories from "@/components/common/home/featured-categories/FeaturedCategories";
 import BestSellers from "@/components/common/home/best-sellers/BestSellers";
 import About from "@/components/common/home/about/About";
+import WhyChoose from "@/components/common/home/why-choose/WhyChoose";
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
         </div>
         <div>
           <About />
+        </div>
+        <div>
+          <WhyChoose />
         </div>
       </main>
     </>
