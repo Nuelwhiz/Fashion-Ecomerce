@@ -1,4 +1,4 @@
-import Image from "next/image";
+//import Image from "next/image";
 import Hero from "@/components/landing/Hero/Hero";
 import FeaturedCategories from "@/components/common/home/featured-categories/FeaturedCategories";
 import BestSellers from "@/components/common/home/best-sellers/BestSellers";
