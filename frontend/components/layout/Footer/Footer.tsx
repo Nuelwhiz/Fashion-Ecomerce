@@ -24,7 +24,7 @@ export default function Footer() {
     "Senator Wear",
     "Agbada",
     "Kaftans",
-    "Native Shirts",
+    "Street Shirts",
     "Custom Tailoring",
   ];
 
