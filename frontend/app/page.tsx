@@ -12,24 +12,24 @@ export default function Home() {
     <>
       <main>
         <Hero />
-        <div>
+        <section>
           <FeaturedCategories />
-        </div>
-        <div>
+        </section>
+        <section>
           <BestSellers />
-        </div>
-        <div>
+        </section>
+        <section>
           <About />
-        </div>
-        <div>
+        </section>
+        <section>
           <WhyChoose />
-        </div>
-        <div>
+        </section>
+        <section>
           <Testimonials />
-        </div>
-        <div>
+        </section>
+        <section>
           <Newsletter />
-        </div>
+        </section>
       </main>
     </>
   );
