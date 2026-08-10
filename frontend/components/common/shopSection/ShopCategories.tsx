@@ -46,7 +46,7 @@ export default function ShopCategories() {
               className="group relative overflow-hidden"
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-zinc-200">
+              <div className="relative aspect-4/5 overflow-hidden bg-zinc-200">
                 <Image
                   src={category.image}
                   alt={category.title}
@@ -56,7 +56,7 @@ export default function ShopCategories() {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
                 {/* Content */}
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7">

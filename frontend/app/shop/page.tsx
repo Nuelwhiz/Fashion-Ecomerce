@@ -6,32 +6,33 @@ import CollectionPreview from "@/components/common/shopSection/CollectionPreview
 import WhyEmifex from "@/components/common/shopSection/WhyEmifex";
 import CustomTailoring from "@/components/common/shopSection/CustomTailoring";
 import ProductCatalogue from "@/components/common/shopSection/ProductCatalogue";
+import ScrollReveal from "@/components/common/scroll/ScrollReveal";
 export default function Shop() {
   return (
     <main className="flex flex-col">
-      <div>
+      <ScrollReveal>
         <ShopHero />
-      </div>
+      </ScrollReveal>
 
-      <div>
+      <ScrollReveal>
         <FeaturedCollection/>
-      </div>
-      <div>
+      </ScrollReveal>
+      <ScrollReveal>
         <ShopCategories/>
-      </div>
-      <div>
+      </ScrollReveal>
+      <ScrollReveal>
         <CollectionPreview />
-      </div>
+      </ScrollReveal>
 
-      <div>
+      <ScrollReveal>
         <WhyEmifex />
-      </div>
-      <div>
+      </ScrollReveal>
+      <ScrollReveal>
         <CustomTailoring />
-      </div>
-      <div>
+      </ScrollReveal>
+      <ScrollReveal>
         <ProductCatalogue />
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

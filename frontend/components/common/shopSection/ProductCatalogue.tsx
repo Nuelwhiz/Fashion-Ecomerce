@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { products } from "@/data/product";
+import ScrollReveal from "@/components/common/scroll/ScrollReveal";
 
 const categories = [
   "All",
@@ -101,34 +103,47 @@ export default function ProductCatalogue() {
 
         {/* Products */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-14">
-          {filteredProducts.map((product) => (
-            <article key={product.id} className="group">
-              <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-              </div>
+          {filteredProducts.map((product, index) => (
+            <ScrollReveal key={product.id} delay={index * 0.08}>
+              <article className="group">
+                <div className="relative aspect-3/4 overflow-hidden bg-zinc-100">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
 
-              <div className="mt-4">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400">
-                  {product.category}
-                </p>
-
-                <div className="mt-2 flex items-start justify-between gap-3">
-                  <h3 className="text-sm font-medium text-zinc-950 sm:text-base">
-                    {product.name}
-                  </h3>
-
-                  <p className="whitespace-nowrap text-sm text-zinc-600">
-                    ₦{product.price.toLocaleString()}
-                  </p>
+                  {/* View Product */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 transition-transform duration-500 ease-out sm:translate-y-full sm:group-hover:translate-y-0">
+                    <Link
+                      href={`/shop/${product.id}`}
+                      className="block w-full bg-white/95 px-5 py-3 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-950 backdrop-blur-sm transition-colors hover:bg-zinc-950 hover:text-white"
+                    >
+                      View Product
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
+
+                {/* Product Information */}
+                <div className="mt-4">
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-zinc-400">
+                    {product.category}
+                  </p>
+
+                  <div className="mt-2 flex items-start justify-between gap-3">
+                    <h3 className="text-sm font-medium text-zinc-950 sm:text-base">
+                      {product.name}
+                    </h3>
+
+                    <p className="whitespace-nowrap text-sm text-zinc-600">
+                      ₦{product.price.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>

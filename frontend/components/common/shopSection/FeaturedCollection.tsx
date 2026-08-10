@@ -55,7 +55,7 @@ export default function FeaturedCollection() {
           {products.map((product) => (
             <article key={product.name} className="group">
               {/* Product Image */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-zinc-100">
+              <div className="relative aspect-4/5 overflow-hidden bg-zinc-100">
                 <Image
                   src={product.image}
                   alt={product.name}
