@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Heart, Menu, Search, ShoppingBag, ChevronDown, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useCartStore } from "@/store/cart-store";
 
 const links = [
   { name: "Home", href: "/" },
@@ -20,7 +21,11 @@ const links = [
   { name: "Contact", href: "/contact" },
 ];
 
+
+
 export default function Header() {
+
+  const cartCount = useCartStore((state) => state.cartCount());
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 
@@ -133,7 +138,21 @@ export default function Header() {
 
           <Heart className="h-5 w-5 text-zinc-900 cursor-pointer hover:text-red-500 transition" />
 
-          <ShoppingBag className="h-5 w-5 text-zinc-900 cursor-pointer hover:text-amber-600 transition" />
+      <Link
+  href="/cart"
+  aria-label="Shopping cart"
+  className="relative"
+>
+  <ShoppingBag size={20} />
+
+  {cartCount > 0 && (
+    <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] text-white">
+      {cartCount}
+    </span>
+  )}
+</Link>
+
+        
 
           <button className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-amber-700 transition">
             Shop Now
