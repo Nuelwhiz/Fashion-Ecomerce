@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Heart, Menu, Search, ShoppingBag, ChevronDown, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCartStore } from "@/store/cart-store";
@@ -21,11 +22,11 @@ const links = [
   { name: "Contact", href: "/contact" },
 ];
 
-
-
 export default function Header() {
-
+  const pathname = usePathname();
   const cartCount = useCartStore((state) => state.cartCount());
+  
+  const [hasMounted, setHasMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 
@@ -34,13 +35,17 @@ export default function Header() {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Set mounted status on client load to prevent SSR hydration mismatch
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -56,7 +61,6 @@ export default function Header() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
@@ -78,58 +82,81 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {links.map((item) => (
-            <div
-              key={item.name}
-              className="relative"
-              ref={item.dropdown ? dropdownRef : null}
-            >
-              {item.dropdown ? (
-                <>
+        <nav className="hidden lg:flex items-center gap-2">
+          {links.map((item) => {
+            if (item.dropdown) {
+              const isChildActive = item.dropdown.some(
+                (drop) => pathname === drop.href
+              );
+
+              return (
+                <div
+                  key={item.name}
+                  className="relative"
+                  ref={dropdownRef}
+                >
                   <button
                     onClick={() => setOpenDropdown(!openDropdown)}
-                    className="flex items-center gap-1 text-sm uppercase tracking-widest font-medium text-zinc-700 hover:text-black transition"
+                    className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm uppercase tracking-widest font-medium transition ${
+                      isChildActive
+                        ? "bg-amber-100 text-amber-800"
+                        : "text-zinc-700 hover:text-black hover:bg-zinc-100"
+                    }`}
                   >
                     {item.name}
-
                     <ChevronDown
                       size={16}
                       className={`transition-transform duration-300 ${
                         openDropdown ? "rotate-180" : ""
-                      } `}
+                      }`}
                     />
                   </button>
 
                   <div
-                    className={`absolute left-0 top-full mt-5 w-52 rounded-xl bg-white shadow-xl border border-gray-100 overflow-hidden transition-all duration-300 ${
+                    className={`absolute left-0 top-full mt-2 w-52 rounded-xl bg-white shadow-xl border border-gray-100 overflow-hidden transition-all duration-300 ${
                       openDropdown
                         ? "opacity-100 visible translate-y-0"
                         : "opacity-0 invisible -translate-y-3"
                     }`}
                   >
-                    {item.dropdown.map((drop) => (
-                      <Link
-                        key={drop.name}
-                        href={drop.href}
-                        onClick={() => setOpenDropdown(false)}
-                        className="block px-5 py-3 text-sm text-zinc-700 hover:bg-amber-50 hover:text-amber-700 transition"
-                      >
-                        {drop.name}
-                      </Link>
-                    ))}
+                    {item.dropdown.map((drop) => {
+                      const isSubActive = pathname === drop.href;
+                      return (
+                        <Link
+                          key={drop.name}
+                          href={drop.href}
+                          onClick={() => setOpenDropdown(false)}
+                          className={`block px-5 py-3 text-sm transition ${
+                            isSubActive
+                              ? "bg-amber-100 font-semibold text-amber-900"
+                              : "text-zinc-700 hover:bg-amber-50 hover:text-amber-700"
+                          }`}
+                        >
+                          {drop.name}
+                        </Link>
+                      );
+                    })}
                   </div>
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  className="relative text-sm uppercase tracking-widest font-medium text-zinc-700 hover:text-black transition after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-amber-600 hover:after:w-full after:transition-all"
-                >
-                  {item.name}
-                </Link>
-              )}
-            </div>
-          ))}
+                </div>
+              );
+            }
+
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`rounded-full px-4 py-2 text-sm uppercase tracking-widest font-medium transition ${
+                  isActive
+                    ? "bg-amber-100 text-amber-800"
+                    : "text-zinc-700 hover:text-black hover:bg-zinc-100"
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Desktop Icons */}
@@ -138,21 +165,18 @@ export default function Header() {
 
           <Heart className="h-5 w-5 text-zinc-900 cursor-pointer hover:text-red-500 transition" />
 
-      <Link
-  href="/cart"
-  aria-label="Shopping cart"
-  className="relative"
->
-  <ShoppingBag size={20} />
-
-  {cartCount > 0 && (
-    <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] text-white">
-      {cartCount}
-    </span>
-  )}
-</Link>
-
-        
+          <Link
+            href="/cart"
+            aria-label="Shopping cart"
+            className="relative"
+          >
+            <ShoppingBag size={20} />
+            {hasMounted && cartCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] text-white">
+                {cartCount}
+              </span>
+            )}
+          </Link>
 
           <button className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-amber-700 transition">
             Shop Now
@@ -179,20 +203,27 @@ export default function Header() {
               : "opacity-0 invisible -translate-y-5"
           }`}
         >
-          <nav className="flex flex-col gap-5 px-6 py-6">
-            {links.map((item) => (
-              <div key={item.name}>
-                {item.dropdown ? (
-                  <>
+          <nav className="flex flex-col gap-2 px-6 py-6">
+            {links.map((item) => {
+              if (item.dropdown) {
+                const isChildActive = item.dropdown.some(
+                  (drop) => pathname === drop.href
+                );
+
+                return (
+                  <div key={item.name}>
                     <button
                       onClick={() => setMobileDropdown(!mobileDropdown)}
-                      className="flex w-full items-center justify-between text-sm uppercase tracking-widest font-medium text-zinc-700"
+                      className={`flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm uppercase tracking-widest font-medium transition ${
+                        isChildActive
+                          ? "bg-amber-100 text-amber-800"
+                          : "text-zinc-700"
+                      }`}
                     >
                       {item.name}
-
                       <ChevronDown
                         size={18}
-                        className={` transition-transform ${
+                        className={`transition-transform ${
                           mobileDropdown ? "rotate-180" : ""
                         }`}
                       />
@@ -200,36 +231,52 @@ export default function Header() {
 
                     <div
                       className={`overflow-hidden transition-all duration-300 ${
-                        mobileDropdown ? "max-h-60 mt-3" : "max-h-0"
+                        mobileDropdown ? "max-h-60 mt-2" : "max-h-0"
                       }`}
                     >
-                      <div className="ml-4 flex flex-col gap-3 border-l pl-4">
-                        {item.dropdown.map((drop) => (
-                          <Link
-                            key={drop.name}
-                            href={drop.href}
-                            onClick={() => setMobileMenu(false)}
-                            className="text-sm text-zinc-600 hover:text-amber-600"
-                          >
-                            {drop.name}
-                          </Link>
-                        ))}
+                      <div className="ml-4 flex flex-col gap-2 border-l-2 border-amber-200 pl-3">
+                        {item.dropdown.map((drop) => {
+                          const isSubActive = pathname === drop.href;
+                          return (
+                            <Link
+                              key={drop.name}
+                              href={drop.href}
+                              onClick={() => setMobileMenu(false)}
+                              className={`rounded-md px-3 py-2 text-sm transition ${
+                                isSubActive
+                                  ? "bg-amber-100 font-semibold text-amber-900"
+                                  : "text-zinc-600 hover:text-amber-600"
+                              }`}
+                            >
+                              {drop.name}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileMenu(false)}
-                    className="text-sm uppercase tracking-widest font-medium text-zinc-700"
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              </div>
-            ))}
+                  </div>
+                );
+              }
 
-            <button className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white">
+              const isActive = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenu(false)}
+                  className={`rounded-lg px-4 py-3 text-sm uppercase tracking-widest font-medium transition ${
+                    isActive
+                      ? "bg-amber-100 text-amber-800"
+                      : "text-zinc-700 hover:bg-zinc-50"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+
+            <button className="mt-4 rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white">
               Shop Now
             </button>
           </nav>

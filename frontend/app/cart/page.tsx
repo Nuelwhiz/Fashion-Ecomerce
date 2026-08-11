@@ -114,7 +114,7 @@ export default function CartPage() {
                     </button>
 
                     {/* Quantity */}
-                    <span className="min-w-[45px] text-center">
+                    <span className="min-w-11.25 text-center">
                       {item.quantity}
                     </span>
 
