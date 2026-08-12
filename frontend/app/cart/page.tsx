@@ -102,7 +102,7 @@ export default function CartPage() {
                 <div className="flex items-center gap-5">
 
                   {/* Product Image */}
-                  <div className="relative aspect-[3/4] w-[112px] shrink-0 overflow-hidden rounded-sm bg-[#f1eee7]">
+                  <div className="relative aspect-3/4 w-28 shrink-0 overflow-hidden rounded-sm bg-[#f1eee7]">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -150,7 +150,7 @@ export default function CartPage() {
                     </button>
 
                     {/* Quantity */}
-                    <span className="min-w-[50px] text-center text-sm font-medium text-[#171717]">
+                    <span className="min-w-12.5 text-center text-sm font-medium text-[#171717]">
                       {item.quantity}
                     </span>
 

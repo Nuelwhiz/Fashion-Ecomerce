@@ -58,7 +58,7 @@ export default function ProductPage() {
         
         {/* Product Image */}
         <div className="overflow-hidden rounded-2xl bg-zinc-100">
-          <div className="aspect-[4/5] w-full">
+          <div className="aspect-4/5 w-full">
             <img
               src={product.image}
               alt={product.name}
@@ -110,7 +110,7 @@ export default function ProductPage() {
               </button>
 
               {/* Quantity */}
-              <span className="min-w-[55px] text-center text-sm font-medium text-zinc-950">
+              <span className="min-w-13.75 text-center text-sm font-medium text-zinc-950">
                 {quantity}
               </span>
 
