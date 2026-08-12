@@ -28,6 +28,7 @@ export default function ProductPage() {
           </h1>
 
           <button
+            type="button"
             onClick={() => router.push("/shop")}
             className="mt-4 underline"
           >
@@ -39,13 +40,17 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
-    addToCart(product.id, quantity);
+    addToCart(
+      product.id,
+      product.name,
+      product.price,
+      quantity
+    );
   };
 
   return (
     <main className="min-h-screen">
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-12 md:grid-cols-2">
-        
         {/* Product Image */}
         <div className="overflow-hidden bg-zinc-100">
           <img
@@ -71,10 +76,6 @@ export default function ProductPage() {
 
           <div className="my-8 border-t border-zinc-200" />
 
-          {/* <p className="max-w-xl leading-7 text-zinc-600">
-            {product.description}
-          </p> */}
-
           {/* Quantity */}
           <div className="mt-10">
             <p className="mb-4 text-sm uppercase tracking-[0.2em]">
@@ -82,7 +83,6 @@ export default function ProductPage() {
             </p>
 
             <div className="flex w-fit items-center border border-zinc-300">
-              {/* Minus */}
               <button
                 type="button"
                 onClick={() =>
@@ -96,12 +96,10 @@ export default function ProductPage() {
                 −
               </button>
 
-              {/* Quantity number */}
               <span className="min-w-[50px] text-center">
                 {quantity}
               </span>
 
-              {/* Plus */}
               <button
                 type="button"
                 onClick={() =>

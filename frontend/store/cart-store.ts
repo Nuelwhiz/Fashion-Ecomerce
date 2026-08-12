@@ -3,13 +3,21 @@ import { persist } from "zustand/middleware";
 
 type CartItem = {
   id: number;
+  name: string;
+  price: number;
   quantity: number;
 };
 
 type CartStore = {
   items: CartItem[];
 
-  addToCart: (id: number, quantity: number) => void;
+  addToCart: (
+    id: number,
+    name: string,
+    price: number,
+    quantity: number
+  ) => void;
+
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
@@ -22,14 +30,12 @@ export const useCartStore = create<CartStore>()(
     (set, get) => ({
       items: [],
 
-      // Add a product to the cart
-      addToCart: (id, quantity) => {
+      addToCart: (id, name, price, quantity) => {
         set((state) => {
           const existingItem = state.items.find(
             (item) => item.id === id
           );
 
-          // If product already exists, increase its quantity
           if (existingItem) {
             return {
               items: state.items.map((item) =>
@@ -43,12 +49,13 @@ export const useCartStore = create<CartStore>()(
             };
           }
 
-          // Otherwise add it as a new item
           return {
             items: [
               ...state.items,
               {
                 id,
+                name,
+                price,
                 quantity,
               },
             ],
@@ -56,7 +63,6 @@ export const useCartStore = create<CartStore>()(
         });
       },
 
-      // Increase quantity
       increaseQuantity: (id) => {
         set((state) => ({
           items: state.items.map((item) =>
@@ -70,7 +76,6 @@ export const useCartStore = create<CartStore>()(
         }));
       },
 
-      // Decrease quantity
       decreaseQuantity: (id) => {
         set((state) => ({
           items: state.items
@@ -86,19 +91,18 @@ export const useCartStore = create<CartStore>()(
         }));
       },
 
-      // Remove product completely
       removeFromCart: (id) => {
         set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
+          items: state.items.filter(
+            (item) => item.id !== id
+          ),
         }));
       },
 
-      // Empty the cart
       clearCart: () => {
         set({ items: [] });
       },
 
-      // Total number of products in cart
       cartCount: () => {
         return get().items.reduce(
           (total, item) => total + item.quantity,
@@ -107,7 +111,7 @@ export const useCartStore = create<CartStore>()(
       },
     }),
     {
-      name: "emifex-cart",
+      name: "emifex-cart-v3",
     }
   )
 );
