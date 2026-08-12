@@ -11,9 +11,7 @@ export default function ProductPage() {
 
   const [quantity, setQuantity] = useState(1);
 
-  const addToCart = useCartStore(
-    (state) => state.addToCart
-  );
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const product = products.find(
     (item) => item.id === Number(params.id)
@@ -55,10 +53,9 @@ export default function ProductPage() {
   return (
     <main className="min-h-screen bg-[#faf9f6]">
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-10 sm:px-6 sm:py-12 md:grid-cols-2 md:gap-12 lg:px-8 lg:py-16">
-        
         {/* Product Image */}
         <div className="overflow-hidden rounded-2xl bg-zinc-100">
-          <div className="aspect-4/5 w-full">
+          <div className="aspect-[4/5] w-full">
             <img
               src={product.image}
               alt={product.name}
@@ -69,7 +66,6 @@ export default function ProductPage() {
 
         {/* Product Information */}
         <div className="flex flex-col justify-center">
-          
           {/* Category */}
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#B08D57]">
             {product.category}
@@ -94,7 +90,6 @@ export default function ProductPage() {
             </p>
 
             <div className="flex w-fit items-center overflow-hidden rounded-lg border border-zinc-300 bg-white">
-              
               {/* Minus */}
               <button
                 type="button"
@@ -110,7 +105,7 @@ export default function ProductPage() {
               </button>
 
               {/* Quantity */}
-              <span className="min-w-13.75 text-center text-sm font-medium text-zinc-950">
+              <span className="min-w-[55px] text-center text-sm font-medium text-zinc-950">
                 {quantity}
               </span>
 
