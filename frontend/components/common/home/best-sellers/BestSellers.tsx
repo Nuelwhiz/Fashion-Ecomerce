@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import ProductCard from "./ProductCard";
-import { products } from "./product";
+import { products } from "@/data/product";
+
 
 export default function BestSellers() {
   return (
@@ -27,7 +28,7 @@ export default function BestSellers() {
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {products.map((product, index) => (
+          {products.slice(0, 4).map((product, index) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 40 }}

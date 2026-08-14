@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { products } from "@/data/product";
 import { useCartStore } from "@/store/cart-store";
 
+
 export default function ProductPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -48,6 +49,8 @@ export default function ProductPage() {
       product.price,
       quantity
     );
+alert(`proceed adding ${quantity} peices of ${product.name} to cart`)
+    
   };
 
   return (

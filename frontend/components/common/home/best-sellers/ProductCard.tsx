@@ -3,19 +3,32 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Button from "../../Button/Button";
+import { useCartStore } from "@/store/cart-store";
 
 interface ProductProps {
+  id: number;
   name: string;
-  price: string;
+  price: number;
   image: string;
 }
 
-export default function ProductCard({ name, price, image }: ProductProps) {
+export default function ProductCard({
+  id,
+  name,
+  price,
+  image,
+}: ProductProps) {
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const handleAddToCart = () => {
+    addToCart(id, name, price, 1);
+  };
+
   return (
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35 }}
-      className="group rounded-2xl overflow-hidden bg-gray-200 shadow-sm hover:shadow-xl"
+      className="group overflow-hidden rounded-2xl bg-gray-200 shadow-sm hover:shadow-xl"
     >
       <div className="relative h-[360px] overflow-hidden">
         <Image
@@ -27,11 +40,20 @@ export default function ProductCard({ name, price, image }: ProductProps) {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-zinc-700">{name}</h3>
+        <h3 className="text-xl font-semibold text-zinc-700">
+          {name}
+        </h3>
 
-        <p className="text-[#C89B3C] font-bold text-lg mt-2">{price}</p>
+        <p className="mt-2 text-lg font-bold text-[#C89B3C]">
+          ₦{price.toLocaleString()}
+        </p>
 
-        <Button className="mt-5 w-full">Add to Cart</Button>
+        <Button
+          className="mt-5 w-full"
+          onClick={handleAddToCart}
+        >
+          Add to Cart
+        </Button>
       </div>
     </motion.div>
   );

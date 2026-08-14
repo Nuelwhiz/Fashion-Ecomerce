@@ -91,7 +91,19 @@ export default function CartPage() {
               (product) => product.id === item.id
             );
 
-            if (!product) return null;
+            if (!product) {
+  return (
+    <div key={item.id} className="border-b border-red-300 py-6">
+      <p className="text-red-600">
+        Product not found — ID: {item.id}
+      </p>
+
+      <p className="mt-2 text-sm text-gray-500">
+        {item.name}
+      </p>
+    </div>
+  );
+}
 
             return (
               <div
